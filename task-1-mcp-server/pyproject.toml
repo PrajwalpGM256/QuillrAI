@@ -1,0 +1,33 @@
+[project]
+name = "refund-mcp-server"
+version = "0.1.0"
+description = "MCP server exposing get_customer_record and trigger_refund over stdio."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mcp==2.3.0",
+    "pydantic>=2.14.2",
+]
+
+[dependency-groups]
+dev = [
+    "jsonschema>=4.26.0",
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+
+[tool.ruff.lint]
+# T20 bans print(): stdout is reserved for JSON-RPC on the stdio transport.
+select = ["E", "F", "I", "B", "UP", "T20"]
