@@ -62,6 +62,7 @@ Error text is `{"error": {"code": ..., "message": ...}}`. Branch on `code`, not 
 | State | Customers in a read-only JSON fixture, refunds and keys in SQLite | Idempotency must survive a restart, which is when retries happen |
 | Idempotency key | Required, bound to a hash of the request | A refund sent without a key cannot be safely retried |
 | Annotations | `destructiveHint: true`, `idempotentHint: false` | The refund moves money irreversibly, so clients should keep a human confirming it |
+| Refund cap | Each customer has a `refundable_total` in the fixture; `refundable_balance` is that total minus refunds already issued, checked in the same transaction as the write | A model-driven destructive tool needs a hard ceiling, so a confused or injected agent cannot over-refund or refund one purchase many times under different keys. This is a customer-level pool standing in for per-charge limits, since the mock has no orders table |
 
 ---
 
