@@ -1,0 +1,35 @@
+[project]
+name = "llm-guardrail"
+version = "0.1.0"
+description = "Streaming LLM gateway that redacts PII from an SSE response stream, chunk-invariant by construction."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "httpx2==2.16.0",
+    "regex==2026.9.29",
+    "starlette==1.10.0",
+    "uvicorn==0.54.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "T20"]
+
+[dependency-groups]
+dev = [
+    "anyio>=4.16.0",
+    "hypothesis>=6.170.14",
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
